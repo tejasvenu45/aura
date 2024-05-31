@@ -1,8 +1,32 @@
-import React from "react";
+/* eslint-disable no-unused-vars */
+import React, { useState } from "react";
 
 function Login() {
+  const [username, setUsername] = useState("");
+  const [password, setPassword] = useState("");
+
+  const loginInfo = { username, password };
+
+  async function handleSubmit(evt) {
+    evt.preventDefault();
+    try {
+      const res = await fetch("http://localhost:8000/api/login", {
+        method: "POST",
+        headers: { "Content-type": "application/json" },
+        body: JSON.stringify(loginInfo),
+      });
+
+      if (!res.ok) {
+        console.log("Error!!!! ");
+      }
+      console.log("Success! ", res);
+    } catch (error) {
+      console.log("Error in fetch ", error);
+    }
+  }
+
   return (
-    <>
+    <form onSubmit={handleSubmit}>
       <div className="flex justify-center items-center h-screen bg-black">
         <div className="bg-white p-10 rounded-lg shadow-lg">
           <h2 className="text-2xl font-bold mb-5">Login</h2>
@@ -14,6 +38,9 @@ function Login() {
               type="text"
               id="username"
               name="username"
+              onChange={(e) => {
+                setUsername(e.target.value);
+              }}
               className="w-full px-4 py-2 border border-gray-300 rounded-md focus:outline-none focus:border-green-500"
             />
           </div>
@@ -25,6 +52,9 @@ function Login() {
               type="password"
               id="password"
               name="password"
+              onChange={(e) => {
+                setPassword(e.target.value);
+              }}
               className="w-full px-4 py-2 border border-gray-300 rounded-md focus:outline-none focus:border-green-500"
             />
           </div>
@@ -33,7 +63,7 @@ function Login() {
           </button>
         </div>
       </div>
-    </>
+    </form>
   );
 }
 

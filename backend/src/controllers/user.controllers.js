@@ -68,7 +68,7 @@ const loginUser = asyncHandler( async (req,res) => {
 
     console.log("Received info ", req.body);
 
-    if((!username && !email) || !password){
+    if((!username || !email) && !password){
         console.log("Enter all the details!");
         return res.send("Enter all details!")
     }

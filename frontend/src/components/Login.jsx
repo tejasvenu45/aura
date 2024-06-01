@@ -4,11 +4,18 @@ import React, { useState } from "react";
 function Login() {
   const [username, setUsername] = useState("");
   const [password, setPassword] = useState("");
-
-  const loginInfo = { username, password };
+  const [email, setEmail] = useState("")
+  const loginInfo = { username, email, password };
 
   async function handleSubmit(evt) {
     evt.preventDefault();
+    const emailRegex = /^[\w-]+(\.[\w-]+)*@([\w-]+\.)+[a-zA-Z]{2,7}$/;
+    const isValidEmail = emailRegex.test(username);
+    if(isValidEmail)
+      {setEmail((username));
+        setUsername("");}
+
+
     try {
       const res = await fetch("http://localhost:8000/api/login", {
         method: "POST",

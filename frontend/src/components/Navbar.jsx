@@ -41,6 +41,9 @@ function Navbar() {
                 <li className="btn btn-active btn-accent sm:m-2 scale-150 sm:scale-125 hover:font-bold hover:scale-125">
                 <Link to="/Signup"> Signup</Link>
                 </li>
+                <li className="btn btn-active btn-primary sm:m-2 scale-150 sm:scale-125 hover:font-bold hover:scale-125">
+                <Link to="/Chat"> Chat</Link>
+                </li>
               </ul>
             </div>
             <div className="hidden sm:block">

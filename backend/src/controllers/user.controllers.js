@@ -143,4 +143,11 @@ const logoutUser = asyncHandler( async(req,res) => {
     .json(loggedOut)
 } )
 
-export { registerUser,loginUser,logoutUser }
+const getUserDetails = asyncHandler( async (req, res) => {
+    const user = await User.findById(req.user._id)
+    res
+    .status(200)
+    .json(user)
+})
+
+export { registerUser,loginUser,logoutUser, getUserDetails }

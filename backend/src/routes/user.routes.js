@@ -1,6 +1,6 @@
 import { Router } from "express";
 import { asyncHandler } from "../utils/asyncHandler.js";
-import { registerUser,loginUser,logoutUser } from "../controllers/user.controllers.js";
+import { registerUser,loginUser,logoutUser, getUserDetails } from "../controllers/user.controllers.js";
 import { verifyJWT } from "../middlewares/auth.middelwares.js";
 import { upload } from "../middlewares/multer.middlewares.js";
 
@@ -27,5 +27,11 @@ router.route("/logout").post(verifyJWT, asyncHandler( async (req,res) => {
     res.json(received)
 }) )
 
+router.route("/user").get(verifyJWT, asyncHandler( async (req, res) => {
+    console.log("In /user")
+    const user = await getUserDetails(req, res)
+    console.log(user)
+    res.json(user)
+}))
 
 export { router }

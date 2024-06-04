@@ -1,31 +1,38 @@
-/* eslint-disable no-unused-vars */
 import React, { useState } from "react";
+import { useDispatch } from 'react-redux';
+import { login } from '../AuthSlice';
 
 function Login() {
   const [username, setUsername] = useState("");
   const [password, setPassword] = useState("");
-  const [email, setEmail] = useState("")
+  const [email, setEmail] = useState("");
   const loginInfo = { username, email, password };
+  const dispatch = useDispatch();
 
   async function handleSubmit(evt) {
     evt.preventDefault();
     const emailRegex = /^[\w-]+(\.[\w-]+)*@([\w-]+\.)+[a-zA-Z]{2,7}$/;
     const isValidEmail = emailRegex.test(username);
-    if(isValidEmail)
-      {setEmail((username));
-        setUsername("");}
-
+    if (isValidEmail) {
+      setEmail(username);
+      setUsername("");
+    }
 
     try {
       const res = await fetch("http://localhost:8000/api/login", {
         method: "POST",
-        headers: { "Content-type": "application/json" },
-        body: JSON.stringify(loginInfo),
+        headers: { "Content-Type": "application/json" },
+        credentials: 'include', 
+        body: JSON.stringify(loginInfo)
       });
 
       if (!res.ok) {
         console.log("Error!!!! ");
+        return;
       }
+
+      const user = await res.json();
+      dispatch(login(user));
       console.log("Success! ", res);
     } catch (error) {
       console.log("Error in fetch ", error);
@@ -45,9 +52,7 @@ function Login() {
               type="text"
               id="username"
               name="username"
-              onChange={(e) => {
-                setUsername(e.target.value);
-              }}
+              onChange={(e) => setUsername(e.target.value)}
               className="w-full px-4 py-2 border border-gray-300 rounded-md focus:outline-none focus:border-green-500"
             />
           </div>
@@ -59,9 +64,7 @@ function Login() {
               type="password"
               id="password"
               name="password"
-              onChange={(e) => {
-                setPassword(e.target.value);
-              }}
+              onChange={(e) => setPassword(e.target.value)}
               className="w-full px-4 py-2 border border-gray-300 rounded-md focus:outline-none focus:border-green-500"
             />
           </div>

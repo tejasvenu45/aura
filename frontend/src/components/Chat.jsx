@@ -15,11 +15,13 @@ function Chat() {
        setInput("");
     }
     setmessageId((prev)=>{prev++;})
+    console.log(messages, messageId, input)
         try {
           const res = await fetch("http://localhost:8000/api/questionPublic", {
             method: "POST",
+            credentials: 'include',
             headers: { "Content-type": "application/json" },
-            body: JSON.stringify(messages[messageId]),
+            body: JSON.stringify({question: input}),
           });
     
           if (!res.ok) {

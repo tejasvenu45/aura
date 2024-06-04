@@ -27,21 +27,22 @@ const registerUser = asyncHandler( async (req,res) => {
     }
 
     const profileLocalPath = req?.file?.path
+    let userCreated, profile
 
     if(!profileLocalPath){
         console.log("Profile path not received");
     }
-    console.log("Profile path received ", profileLocalPath);
+    else{
+        console.log("Profile path received ", profileLocalPath);
 
-    let userCreated, profile
+        profile = await uploadOnCloudinary(profileLocalPath)
 
-    profile = await uploadOnCloudinary(profileLocalPath)
-
-    if(!profile){
-        console.log("Cloudinary not received!");
+        if(!profile){
+            console.log("Cloudinary not received!");
+        }
+        console.log("Cloudinary received ", profile.url);
     }
-    console.log("Cloudinary received ", profile.url);
-
+    
     userCreated = await User.create({username, email, fullname, password, profile: profile?.url || ""})
 
     console.log("After userCreated");
@@ -64,19 +65,29 @@ const registerUser = asyncHandler( async (req,res) => {
 const loginUser = asyncHandler( async (req,res) => {
     console.log("In loginUser ");
 
-    const { username, email, password } = req.body;
+    const { username, password } = req.body;
 
     console.log("Received info ", req.body);
 
-    if((!username || !email) && !password){
+    if(!username && !password){
         console.log("Enter all the details!");
         return res.send("Enter all details!")
     }
 
-    const checkUser = await User.findOne({
-        $or:[{username},{email}]
-    })
+    const emailRegex = /^[\w-]+(\.[\w-]+)*@([\w-]+\.)+[a-zA-Z]{2,7}$/;
+    const isValidEmail = emailRegex.test(username);
+    let checkUser, email
 
+    if(isValidEmail){
+        email = username
+        checkUser = await User.findOne({email})
+    }
+    else{
+        checkUser = await User.findOne({username})
+    }
+
+    console.log("User ",checkUser);
+    
     if(!checkUser){
         console.log("User info wrong!");
         return res.send("User not found").status(404)
@@ -110,11 +121,13 @@ const loginUser = asyncHandler( async (req,res) => {
 
     console.log("User is logged in ", loggedInUser);
 
+    const successMessage = {"success":"User is logged in"}
+
     return res.
     status(200)
     .cookie("accesstoken", accesstoken, options)
     .cookie("refreshtoken", refreshtoken, options)
-    .json(loggedInUser)
+    .json(successMessage)
 
 } )
 
@@ -143,11 +156,19 @@ const logoutUser = asyncHandler( async(req,res) => {
     .json(loggedOut)
 } )
 
-const getUserDetails = asyncHandler( async (req, res) => {
+const getUser = asyncHandler( async(req,res) => {
     const user = await User.findById(req.user._id)
-    res
+
+    if(!user){
+        console.log("User not found");
+        return res.send("User not found").status(404)
+    }
+
+    console.log(user);
+
+    return res
     .status(200)
     .json(user)
-})
+} )
 
-export { registerUser,loginUser,logoutUser, getUserDetails }
+export { registerUser,loginUser,logoutUser,getUser }

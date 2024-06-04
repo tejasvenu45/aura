@@ -1,3 +1,4 @@
+/* eslint-disable no-unused-vars */
 import React, { useState } from "react";
 
 function Chat() {
@@ -12,29 +13,28 @@ function Chat() {
     event.preventDefault();
     if (input.trim() !== "") {
       setMessages([...messages, input]);
-       setInput("");
+      setInput("");
     }
-    setmessageId((prev)=>{prev++;})
-    console.log(messages, messageId, input)
-        try {
-          const res = await fetch("http://localhost:8000/api/questionPublic", {
-            method: "POST",
-            credentials: 'include',
-            headers: { "Content-type": "application/json" },
-            body: JSON.stringify({question: input}),
-          });
-    
-          if (!res.ok) {
-            console.log("Error!!!! ");
-          }
-          console.log("Success! ", res);
-        } catch (error) {
-          console.log("Error in fetch ", error);
-        }
-      
+    setmessageId((prev) => {
+      prev++;
+    });
+    console.log(messages, messageId, input);
+    try {
+      const res = await fetch("http://localhost:8000/api/questionPublic", {
+        method: "POST",
+        credentials: "include",
+        headers: { "Content-type": "application/json" },
+        body: JSON.stringify({ question: input }),
+      });
 
+      if (!res.ok) {
+        console.log("Error!!!! ");
+      }
+      console.log("Success! ", res);
+    } catch (error) {
+      console.log("Error in fetch ", error);
+    }
   };
-  
 
   return (
     <>

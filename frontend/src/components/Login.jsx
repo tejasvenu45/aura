@@ -1,29 +1,30 @@
+/* eslint-disable no-unused-vars */
 import React, { useState } from "react";
-import { useDispatch } from 'react-redux';
-import { login } from '../AuthSlice';
+import { useDispatch } from "react-redux";
+import { login } from "../AuthSlice";
 
 function Login() {
   const [username, setUsername] = useState("");
   const [password, setPassword] = useState("");
-  const [email, setEmail] = useState("");
-  const loginInfo = { username, email, password };
+  // const [email, setEmail] = useState("");
+  const loginInfo = { username, password };
   const dispatch = useDispatch();
 
   async function handleSubmit(evt) {
     evt.preventDefault();
-    const emailRegex = /^[\w-]+(\.[\w-]+)*@([\w-]+\.)+[a-zA-Z]{2,7}$/;
-    const isValidEmail = emailRegex.test(username);
-    if (isValidEmail) {
-      setEmail(username);
-      setUsername("");
-    }
+    // const emailRegex = /^[\w-]+(\.[\w-]+)*@([\w-]+\.)+[a-zA-Z]{2,7}$/;
+    // const isValidEmail = emailRegex.test(username);
+    // if (isValidEmail) {
+    //   setEmail(username);
+    //   setUsername("");
+    // }
 
     try {
       const res = await fetch("http://localhost:8000/api/login", {
         method: "POST",
         headers: { "Content-Type": "application/json" },
-        credentials: 'include', 
-        body: JSON.stringify(loginInfo)
+        credentials: "include",
+        body: JSON.stringify(loginInfo),
       });
 
       if (!res.ok) {

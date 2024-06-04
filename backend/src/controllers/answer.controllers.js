@@ -9,9 +9,7 @@ const answerTo = asyncHandler( async(req,res) => {
     const question_id = req.params.id
 
     if(!answer || !question_id){
-        console.log("Not received answer");
-        console.log("Not received question");
-        res.send("Not received answer")
+        return res.send("invalid! either answer is not received or question does not exist")
     }
     console.log(answer);
 
@@ -24,11 +22,16 @@ const answerTo = asyncHandler( async(req,res) => {
 
     const getAnswer = await Answer.findById(addAnswer._id)
     const question = await Question.findById(question_id)
+
+    if(!question){
+        return res.send("Question does not exist!")
+    }
+
     question.answer.push(getAnswer._id)
     await question.save()
 
     if(!getAnswer){
-        res.send("Could not find it").status(404)
+        return res.send("Could not find it").status(404)
     }
     console.log(getAnswer);
 

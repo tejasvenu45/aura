@@ -8,6 +8,7 @@ const verifyJWT = asyncHandler( async ( req,res,next ) => {
 
     if(!token){
         console.log("Not received token");
+        return res.send("User not logged in!")
     }
 
     const receivedtoken = jwt.verify(token, process.env.ACCESS_TOKEN_SECRET)
@@ -32,6 +33,7 @@ const checkAdmin = asyncHandler( async(req,res,next) => {
         res.send("Not an Admin!")
     }
 }  )
+
 
 
 

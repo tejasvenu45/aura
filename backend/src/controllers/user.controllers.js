@@ -1,6 +1,7 @@
 import { User } from "../models/user.models.js";
 import { asyncHandler } from "../utils/asyncHandler.js"
 import { uploadOnCloudinary } from "../utils/cloudinary.utils.js";
+import { Events } from "../models/fields.model.js";
 
 const registerUser = asyncHandler( async (req,res) => {
 
@@ -171,4 +172,33 @@ const getUser = asyncHandler( async(req,res) => {
     .json(user)
 } )
 
-export { registerUser,loginUser,logoutUser,getUser }
+
+const userResponseToForm = asyncHandler( async( req,res ) => {
+    console.log("In userResponseToForm");
+
+    const { formId } = req.params
+    const { responses } = req.body
+
+    console.log(formId, responses);
+
+    if(!(formId && responses)){
+        console.log("Respond to a form or respond!");
+        return res.send("Incomplete info")
+    }
+
+
+    const Form = await Events.findById(formId)
+
+    Form.responses.push(responses)
+
+    await Form.save()
+
+    console.log("Responses added ", Form);
+
+    return res
+    .status(200)
+    .send("Success")
+    .json(Form)
+} )
+
+export { registerUser,loginUser,logoutUser,getUser,userResponseToForm }

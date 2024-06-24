@@ -29,10 +29,12 @@ import {router} from "./routes/user.routes.js";
 import {questionRouter} from "./routes/question.routes.js";
 import {answerRouter} from "./routes/answer.routes.js";
 import {messageRouter} from "./routes/message.routes.js";
+import { fieldRouter } from "./routes/fields.routes.js";
 
 app.use("/api", router)
 app.use("/api", questionRouter)
 app.use("/api", answerRouter)
 app.use("/api", messageRouter)
+app.use("/api", fieldRouter)
 
 export default app

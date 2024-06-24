@@ -1,0 +1,15 @@
+import { adminForm } from "../controllers/fields.controllers.js";
+import { Router } from "express";
+import { asyncHandler } from "../utils/asyncHandler.js";
+import { checkAdmin, verifyJWT } from "../middlewares/auth.middelwares.js";
+
+const fieldRouter = Router() 
+
+fieldRouter.route("/create-form").post(verifyJWT, checkAdmin, asyncHandler( async(req,res) => {
+    console.log("in /create-form POST");
+    const received = adminForm(req,res)
+    console.log(received);
+    res.json(received)
+} ) )
+
+export { fieldRouter }

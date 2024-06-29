@@ -6,6 +6,7 @@ import Articles from './components/Articles'
 import Login from './components/Login'
 import Signup from './components/Signup'
 import Chat from './components/Chat'
+import PublicQNA from './components/PublicQNA'
 function App() {
   
 
@@ -19,6 +20,8 @@ function App() {
           <Route path="Login" element={<Login/>}/>
           <Route path="Signup" element={<Signup/>}/>
           <Route path="Chat" element={<Chat/>}/>
+          <Route path="PublicQNA" element={<PublicQNA/>}/>
+
 
         </Route>
       </Routes>

@@ -62,22 +62,22 @@ function AboutUs() {
         <section className="flex flex-col items-start ">
           
           <div className="flex flex-row justify-center gap-2 bg-black text-green-700 w-full pt-5 shadow-xl shadow-green-700 ">
-            <h1 className=" p-5 font-bold bg-black text-white w-full text-5xl border-2 border-green-700 mt-2 text-center "><Slide>About Us</Slide></h1>
+            <h1 className=" p-5 font-bold bg-black text-white w-full text-5xl border-2 border-purple-700 shadow-2xl shadow-purple-700 mt-2 text-center "><Slide>About Us</Slide></h1>
           </div>
           <div className=" text-xl   sm:w-full py-6 flex flex-col sm:text-3xl bg-black text-green-500 ">
             <div className=" flex flex-col border-2 border-green-700 shadow-xl mt-2 p-2 ">
               <Slide>
-              <p>Welcome to the CSE(AI&ML) Club, a dynamic community dedicated to
+              <p className="text-white">Welcome to the CSE(AI&ML) Club, a dynamic community dedicated to
               exploring and advancing knowledge in Artificial Intelligence (AI) and
               Machine Learning (ML). Our focus is on cutting-edge technologies and
-              practical applications. </p> <p>1. <b className="text-white">Advancing AI and ML Knowledge:</b> Our club
+              practical applications. </p> <p className="text-white">1. <b className="text-orange-500">Advancing AI and ML Knowledge:</b> Our club
               serves as a central hub for enthusiasts and experts alike to deepen
               their understanding of AI and various facets of ML, fostering a
-              collaborative environment for exploration.</p> <p> 2. <b className="text-white">Practical Skill
+              collaborative environment for exploration.</p> <p className="text-white"> 2. <b className="text-orange-500">Practical Skill
               Development:</b> We prioritize hands-on learning through workshops,
               projects, and collaborative initiatives. Members gain practical skills
               in implementing ML algorithms, working with datasets, and tackling
-              real-world problems.3. </p> <p><b  className="text-white"> 3.Knowledge Sharing and Outreach:</b> Integral to
+              real-world problems.3. </p> <p className="text-white"><b  className="text-orange-500"> 3.Knowledge Sharing and Outreach:</b> Integral to
               our mission is sharing ML knowledge beyond our community. We actively
               promote knowledge sharing through seminars, tutorials, and outreach
               programs, extending the impact of ML beyond our club members.</p>
@@ -88,7 +88,7 @@ function AboutUs() {
         </section>
       </section>
       <section className="bg-black ">
-        <h1 className="bg-black text-white border-4 border-green-700 p-8 font-bold w-full text-center text-5xl mt-7 shadow-xl shadow-green-700" > <Slide>Domains</Slide></h1>
+        <h1 className="bg-black text-white border-4 border-purple-700 p-8 font-bold w-full text-center text-5xl mt-7 shadow-xl shadow-purple-700" > <Slide>Domains</Slide></h1>
         
         <section className="grid grid-cols-1 lg:grid-cols-3 w-full gap-8 mt-20">
           {domains.map((domain, index) => (

@@ -27,22 +27,54 @@ function Navbar() {
               </Slide>
             </div>
             <div className="flex-grow scale-125 sm:flex-none flex justify-center items-center mt-2 sm:mt-0">
-              <ul className="sm:border-4 sm:border-green-700 sm:rounded-3xl flex flex-wrap sm:flex-nowrap justify-center sm:justify-start  sm: hover:scale-125">
-                <li className="btn btn-active btn-neutral sm:m-2 scale-150 sm:scale-125 hover:font-bold hover:scale-125">
-                  <Link to="/">Home</Link>
+              <ul className="sm:border-4 sm:border-green-700 sm:rounded-3xl flex flex-wrap sm:flex-nowrap justify-center sm:justify-start scale-125">
+                <li className="sm:m-2">
+                  <Link
+                    to="/"
+                    className="text-white scale-150 sm:scale-125 hover:text-green-700 hover:underline hover:font-bold"
+                  >
+                    Home
+                  </Link>
                 </li>
-                <li className="btn btn-active btn-primary sm:m-2 scale-150 sm:scale-125 hover:font-bold hover:scale-125">
-                  <Link to="/Articles"> Articles</Link>
+                <li className="sm:m-2">
+                  <Link
+                    to="/Articles"
+                    className="text-white scale-150 sm:scale-125 hover:text-green-700 hover:underline hover:font-bold"
+                  >
+                    Articles
+                  </Link>
                 </li>
-                <li className="btn btn-active btn-secondary sm:m-2 scale-150 sm:scale-125 hover:font-bold hover:scale-125">
-                  <Link to="/Login"> Login</Link>
-
+                <li className="sm:m-2">
+                  <Link
+                    to="/Login"
+                    className="text-white scale-150 sm:scale-125 hover:text-green-700 hover:underline hover:font-bold"
+                  >
+                    Login
+                  </Link>
                 </li>
-                <li className="btn btn-active btn-accent sm:m-2 scale-150 sm:scale-125 hover:font-bold hover:scale-125">
-                <Link to="/Signup"> Signup</Link>
+                <li className="sm:m-2">
+                  <Link
+                    to="/Signup"
+                    className="text-white scale-150 sm:scale-125 hover:text-green-700 hover:underline hover:font-bold"
+                  >
+                    Signup
+                  </Link>
                 </li>
-                <li className="btn btn-active btn-primary sm:m-2 scale-150 sm:scale-125 hover:font-bold hover:scale-125">
-                <Link to="/Chat"> Chat</Link>
+                <li className="sm:m-2">
+                  <Link
+                    to="/Chat"
+                    className="text-white scale-150 sm:scale-125 hover:text-green-700 hover:underline hover:font-bold"
+                  >
+                    Chat
+                  </Link>
+                </li>
+                <li className="sm:m-2">
+                  <Link
+                    to="/PublicQNA"
+                    className="text-white scale-150 sm:scale-125 hover:text-green-700 hover:underline hover:font-bold"
+                  >
+                    Public QNA
+                  </Link>
                 </li>
               </ul>
             </div>

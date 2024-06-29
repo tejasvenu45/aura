@@ -20,7 +20,7 @@ function Hero() {
   return (
     <>
       <div className="bg-black flex sm:flex-col justify-center items-center pb-12 pt-18 pt-20">
-        <div className="flex flex-col sm:flex-row border-2 border-green-700 w-11/12 h-1/2 justify-start items-start shadow-xl shadow-green-700 hover:scale-105">
+        <div className="flex flex-col sm:flex-row border-2 border-green-700 shadow-green-700 w-11/12 h-1/2 justify-start items-start shadow-xl  hover:scale-105">
           <div className="flex flex-col mt-10 justify-start items-start sm:w-2/5 sm:mt-36 sm:ml-12 sm:mr-24 sm:mb-24">
             <Slide>
               <img src={logo} alt="Logo" className="mb-12 h-36" />

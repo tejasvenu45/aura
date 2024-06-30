@@ -8,7 +8,7 @@ const askQuestion = asyncHandler( async(req,res) => {
 
     console.log("Obtained question ", question);
     if(!question){
-        res.send("Enter question")
+        console.log("Enter question")
     }
 
     const putQuestion = await Question.create({question, author: req.user._id})
@@ -20,7 +20,7 @@ const askQuestion = asyncHandler( async(req,res) => {
 
     const getQuestion = await Question.findById(putQuestion._id)
 
-    console.log("Added and fetched ", getQuestion);
+    // console.log("Added and fetched ", getQuestion);
 
     return res  
     .status(200)
@@ -28,7 +28,7 @@ const askQuestion = asyncHandler( async(req,res) => {
 } )
 
 const getQuestionsPublic = asyncHandler( async(req,res) => {
-    const questions = await Question.find({})
+    const questions = await Question.find({}).populate("answer")
 
     if(!questions){
         console.log("Questions not found");

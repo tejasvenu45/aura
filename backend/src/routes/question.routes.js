@@ -1,7 +1,7 @@
 import { Router } from "express";
-import { verifyJWT } from "../middlewares/auth.middelwares.js";
+import { checkAdmin, verifyJWT } from "../middlewares/auth.middelwares.js";
 import { asyncHandler } from "../utils/asyncHandler.js";
-import { askQuestion,getQuestionsPublic } from "../controllers/question.controllers.js";
+import { askQuestion,getQuestionsPublic, like, deleteQuestion } from "../controllers/question.controllers.js";
 
 const questionRouter = Router()
 
@@ -18,5 +18,17 @@ questionRouter.route("/getQuestions").get(verifyJWT, asyncHandler( async(req,res
     console.log(received)
     res.json(received);
 } ))
+
+questionRouter.route("/like/:id").post(verifyJWT, asyncHandler( async(req, res) => {
+    console.log("In /like route");
+    const question = await like(req, res)
+    res.json(question)
+}))
+
+questionRouter.route("/delQuestion/:id").post(verifyJWT, checkAdmin, asyncHandler( async(req, res) => {
+    console.log("In /delQuestion route");
+    await deleteQuestion(req, res);
+    res.status(200)
+}))
 
 export {questionRouter}

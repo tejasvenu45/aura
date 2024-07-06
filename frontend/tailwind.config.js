@@ -11,7 +11,11 @@ export default {
     flowbite.content(),
   ],
   theme: {
-    extend: {},
+    extend: {
+      colors: {
+        'light-green': '#00e600', // or any light green shade you prefer
+      },
+    },
   },
 plugins: [require("daisyui"),    flowbite.plugin(),
 ],

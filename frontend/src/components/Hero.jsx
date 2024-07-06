@@ -7,7 +7,7 @@ import 'slick-carousel/slick/slick-theme.css';
 import image1 from "./assets/11.jpg";
 import image2 from "./assets/10.jpg";
 import image3 from "./assets/6.jpg";
-
+import { useSelector } from "react-redux";
 function Hero() {
   const settings = {
     dots: true,
@@ -16,9 +16,22 @@ function Hero() {
     slidesToShow: 1,
     slidesToScroll: 1
   };
+  const isAuthenticated = useSelector((state) => state.auth.isAuthenticated);
+  const user = useSelector((state) => state.auth.user);
 
   return (
     <>
+    <div>
+      {isAuthenticated ? (
+        <div>
+          Logged in as {user ? user.name : 'Unknown User'}
+        </div>
+      ) : (
+        <div>
+          Not logged in
+        </div>
+      )}
+    </div>
       <div className="bg-black flex sm:flex-col justify-center items-center pb-12 pt-18 pt-20">
         <div className="flex flex-col sm:flex-row border-2 border-green-700 shadow-green-700 w-11/12 h-1/2 justify-start items-start shadow-xl  hover:scale-105">
           <div className="flex flex-col mt-10 justify-start items-start sm:w-2/5 sm:mt-36 sm:ml-12 sm:mr-24 sm:mb-24">

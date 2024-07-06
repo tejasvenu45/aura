@@ -1,7 +1,6 @@
-/* eslint-disable no-unused-vars */
 import React, { useEffect, useState } from "react";
 import Aura from "./assets/aura.png";
-
+import like from "./assets/like.png"
 function PublicQNA() {
   const [activeIndex, setActiveIndex] = useState(null);
   const [question, setQuestion] = useState("");
@@ -15,7 +14,7 @@ function PublicQNA() {
         method: "POST",
         headers: { "Content-Type": "application/json" },
         credentials: "include",
-        body: JSON.stringify({ question }), // Ensure question is an object with a key
+        body: JSON.stringify({ question }),
       });
 
       if (!res.ok) {
@@ -25,8 +24,33 @@ function PublicQNA() {
       } else {
         const data = await res.json();
         console.log("Success:", data);
-        // Update faqData with the new question
         setFaqData((prevFaqData) => [...prevFaqData, data]);
+      }
+    } catch (error) {
+      console.log(error);
+    }
+  }
+
+  async function handleSubmitLike(evt, id) {
+    evt.preventDefault();
+
+    try {
+      const res = await fetch(`http://localhost:8000/api/like/${id}`, {
+        method: "POST",
+        headers: { "Content-Type": "application/json" },
+        credentials: "include",
+      });
+
+      if (!res.ok) {
+        console.log("error in sending likes!");
+        const errorData = await res.json();
+        console.error(errorData);
+      } else {
+        const data = await res.json();
+        console.log("Success:", data);
+        setFaqData((prevFaqData) =>
+          prevFaqData.map((item) => (item._id === data._id ? data : item))
+        );
       }
     } catch (error) {
       console.log(error);
@@ -38,7 +62,7 @@ function PublicQNA() {
       try {
         const req = await fetch("http://localhost:8000/api/getQuestions", {
           method: "GET",
-          headers: { "Content-type": "application/json" },
+          // headers: { "Content-type": "application/json" },
           credentials: "include",
         });
 
@@ -48,14 +72,14 @@ function PublicQNA() {
         }
 
         const data = await req.json();
-        setFaqData(data); // Assuming data is an array
+        setFaqData(data);
       } catch (error) {
         console.error("Error fetching questions:", error);
       }
     }
 
     receiveQuestion();
-  }, []); // Only fetch once when the component mounts
+  }, []);
 
   const toggleAnswer = (index) => {
     setActiveIndex(activeIndex === index ? null : index);
@@ -74,6 +98,10 @@ function PublicQNA() {
               onClick={() => toggleAnswer(index)}
             >
               {item.question}
+              <br/>
+              <button onClick={(evt) => handleSubmitLike(evt, item._id)} className="">
+                <img src={like} alt="" className="h-8 w-auto" />
+              </button>
             </div>
             {activeIndex === index && (
               <div className="mt-2 p-4 bg-orange-400 text-black rounded">

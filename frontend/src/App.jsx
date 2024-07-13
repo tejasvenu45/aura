@@ -7,6 +7,8 @@ import Login from './components/Login'
 import Signup from './components/Signup'
 import Chat from './components/Chat'
 import PublicQNA from './components/PublicQNA'
+import CreateFormFields from './components/CreateFormFields'
+import DynamicForm from './components/DynamicForm'
 function App() {
   
 
@@ -18,6 +20,9 @@ function App() {
           <Route index element={<Home />} />
           <Route path="Articles" element={<Articles/>}/>
           <Route path="Login" element={<Login/>}/>
+          <Route path="CreateForm" element={<CreateFormFields/>}/>
+          <Route path="DynamicForm" element={<DynamicForm/>}/>
+
           <Route path="Signup" element={<Signup/>}/>
           <Route path="Chat" element={<Chat/>}/>
           <Route path="PublicQNA" element={<PublicQNA/>}/>

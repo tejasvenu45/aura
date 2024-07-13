@@ -13,11 +13,10 @@ function Navbar() {
           <div className="flex flex-col sm:flex-row justify-between items-center px-2 sm:px-6 lg:px-8 pb-2 sm:pb-4">
             <div className="flex items-center">
               <Slide>
-                {/* Conditionally render images based on screen size */}
                 <img
                   src={pes}
                   alt="pes"
-                  className="h-28 bg-black   sm:h-18 w-auto mr-2 sm:mr-4 hidden sm:block"
+                  className="h-28 bg-black sm:h-18 w-auto mr-2 sm:mr-4 hidden sm:block"
                 />
                 <img
                   src={aura}
@@ -26,52 +25,36 @@ function Navbar() {
                 />
               </Slide>
             </div>
-            <div className="flex-grow scale-125 sm:flex-none flex justify-center items-center mt-2 sm:mt-0">
-              <ul className="sm:border-4 sm:border-green-700 sm:rounded-3xl flex flex-wrap sm:flex-nowrap justify-center sm:justify-start scale-125">
-                <li className="sm:m-2">
+            <div className="flex-grow flex justify-center lg:scale-150 items-center mt-2 sm:mt-0">
+              <ul className="flex flex-wrap sm:flex-nowrap lg:scale-125 justify-center w-full sm:w-auto sm:border-4 sm:border-green-700 sm:rounded-3xl">
+                <li className="m-2">
                   <Link
                     to="/"
-                    className="text-white scale-150 sm:scale-125 hover:text-green-700 hover:underline hover:font-bold"
+                    className="text-white hover:text-green-700 hover:underline hover:font-bold"
                   >
                     Home
                   </Link>
                 </li>
-                <li className="sm:m-2">
-                  <Link
-                    to="/Articles"
-                    className="text-white scale-150 sm:scale-125 hover:text-green-700 hover:underline hover:font-bold"
-                  >
-                    Articles
-                  </Link>
-                </li>
-                <li className="sm:m-2">
+                <li className="m-2">
                   <Link
                     to="/Login"
-                    className="text-white scale-150 sm:scale-125 hover:text-green-700 hover:underline hover:font-bold"
+                    className="text-white hover:text-green-700 hover:underline hover:font-bold"
                   >
                     Login
                   </Link>
                 </li>
-                <li className="sm:m-2">
+                <li className="m-2">
                   <Link
                     to="/Signup"
-                    className="text-white scale-150 sm:scale-125 hover:text-green-700 hover:underline hover:font-bold"
+                    className="text-white hover:text-green-700 hover:underline hover:font-bold"
                   >
                     Signup
                   </Link>
                 </li>
-                <li className="sm:m-2">
-                  <Link
-                    to="/Chat"
-                    className="text-white scale-150 sm:scale-125 hover:text-green-700 hover:underline hover:font-bold"
-                  >
-                    Chat
-                  </Link>
-                </li>
-                <li className="sm:m-2">
+                <li className="m-2">
                   <Link
                     to="/PublicQNA"
-                    className="text-white scale-150 sm:scale-125 hover:text-green-700 hover:underline hover:font-bold"
+                    className="text-white hover:text-green-700 hover:underline hover:font-bold"
                   >
                     Public QNA
                   </Link>
@@ -84,9 +67,9 @@ function Navbar() {
               </Slide>
             </div>
           </div>
-        </div >
+        </div>
         <Outlet />
-      </div >
+      </div>
     </>
   );
 }

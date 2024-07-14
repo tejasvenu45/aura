@@ -201,4 +201,14 @@ const userResponseToForm = asyncHandler( async( req,res ) => {
     .json(Form)
 } )
 
-export { registerUser,loginUser,logoutUser,getUser,userResponseToForm }
+const getForm = asyncHandler( async (req,res) => {
+    const {formId} = req.params
+
+    const form = await Events.findById( formId )
+
+    return res
+    .status(200)
+    .json(form)
+} )
+
+export { registerUser,loginUser,logoutUser,getUser,userResponseToForm,getForm }

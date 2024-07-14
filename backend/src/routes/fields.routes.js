@@ -1,4 +1,4 @@
-import { adminForm } from "../controllers/fields.controllers.js";
+import { adminForm, getEvents } from "../controllers/fields.controllers.js";
 import { Router } from "express";
 import { asyncHandler } from "../utils/asyncHandler.js";
 import { checkAdmin, verifyJWT } from "../middlewares/auth.middelwares.js";
@@ -11,5 +11,11 @@ fieldRouter.route("/create-form").post(verifyJWT, checkAdmin, asyncHandler( asyn
     console.log(received);
     res.json(received)
 } ) )
+
+fieldRouter.route("/getEvents").get(asyncHandler(async (req, res) => {
+    console.log("In /getEvents route");
+    const received = await getEvents(req, res)
+    console.log(received)
+}))
 
 export { fieldRouter }

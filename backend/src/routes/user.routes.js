@@ -1,6 +1,6 @@
 import { Router } from "express";
 import { asyncHandler } from "../utils/asyncHandler.js";
-import { registerUser,loginUser,logoutUser,userResponseToForm } from "../controllers/user.controllers.js";
+import { registerUser,loginUser,logoutUser,userResponseToForm,getForm } from "../controllers/user.controllers.js";
 import { verifyJWT } from "../middlewares/auth.middelwares.js";
 import { upload } from "../middlewares/multer.middlewares.js";
 
@@ -33,6 +33,12 @@ router.route("/getUser").get(verifyJWT, asyncHandler( async (req,res) => {
     console.log(received);
     res.json(received)
 } ))
+
+router.route("/response/:formId").get( verifyJWT, asyncHandler( async (req,res) => {
+    console.log("In /response GET");
+    const received = await getForm(req,res)
+    console.log(received);
+} ) )
 
 router.route("/response/:formId").post(verifyJWT, asyncHandler( async (req,res) => {
     console.log("In /response post");

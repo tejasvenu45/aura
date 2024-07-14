@@ -32,4 +32,12 @@ const adminForm = asyncHandler( async( req,res ) => {
     .json(getFields)
 } )
 
-export { adminForm }
+const getEvents = asyncHandler( async(req, res) => {
+    const events = await Events.find({});
+    console.log(events);
+    return res
+    .status(200)
+    .json(events)
+})
+
+export { adminForm, getEvents }

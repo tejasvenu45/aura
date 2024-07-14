@@ -32,8 +32,28 @@ const CreateFormFields = () => {
         setFields(newFields);
     };
 
-    const handleSubmit = (event) => {
+    const handleSubmit = async (event) => {
         event.preventDefault();
+        
+        try {
+            const toPass = { name: formName, description: formDescription, fields }
+    
+            const FormRes = await fetch( "http://localhost:8000/api/create-form", {
+                method:"POST",
+                credentials: 'include',
+                headers: {"Content-type":"application/json"},
+                body: JSON.stringify( toPass )
+            } )
+
+            if(!FormRes.ok){
+                console.log("Form not created");
+            }
+
+            console.log(FormRes.data);
+    
+        } catch (error) {
+            console.log(error);
+        }
         const formTemplate = {
             name: formName,
             description: formDescription,

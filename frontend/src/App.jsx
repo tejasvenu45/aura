@@ -9,6 +9,7 @@ import Chat from './components/Chat'
 import PublicQNA from './components/PublicQNA'
 import CreateFormFields from './components/CreateFormFields'
 import DynamicForm from './components/DynamicForm'
+import Events from './components/Events'
 function App() {
   
 
@@ -21,12 +22,12 @@ function App() {
           <Route path="Articles" element={<Articles/>}/>
           <Route path="Login" element={<Login/>}/>
           <Route path="CreateForm" element={<CreateFormFields/>}/>
-          <Route path="DynamicForm" element={<DynamicForm/>}/>
+          <Route path="DynamicForm/:id" element={<DynamicForm/>}/>
 
           <Route path="Signup" element={<Signup/>}/>
           <Route path="Chat" element={<Chat/>}/>
           <Route path="PublicQNA" element={<PublicQNA/>}/>
-
+          <Route path="Events" element={<Events/>}/>
 
         </Route>
       </Routes>

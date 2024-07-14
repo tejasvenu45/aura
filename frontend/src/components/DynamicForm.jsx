@@ -1,4 +1,5 @@
 import React, { useState, useEffect } from 'react';
+import { useParams } from 'react-router-dom';
 
 // Dummy form data to mimic fetched data
 const dummyFormData = {
@@ -12,13 +13,34 @@ const dummyFormData = {
 };
 
 const DynamicForm = () => {
-    const [form, setForm] = useState({});
+    const [form, setForm] = useState(null);
     const [formData, setFormData] = useState({});
+    const { id } = useParams();
 
     useEffect(() => {
-        // Mimic fetching form data
-        setForm(dummyFormData);
-    }, []);
+        const fetchData = async () => {
+            try {
+                const response = await fetch(`http://localhost:8000/api/response/${id}`, {
+                    method: "GET",
+                    credentials: "include"
+                });
+
+                if (!response.ok) {
+                    console.log("Form not received");
+                    return;
+                }
+
+                const data = await response.json();
+                console.log("DATA", data)
+                setForm(data);
+
+            } catch (error) {
+                console.log(error);
+            }
+        };
+
+        fetchData();
+    }, [id]);
 
     const handleInputChange = (fieldLabel, value) => {
         setFormData({
@@ -27,13 +49,32 @@ const DynamicForm = () => {
         });
     };
 
-    const handleSubmit = (event) => {
+    const handleSubmit = async (event) => {
         event.preventDefault();
-        console.log('Form Data:', formData);
+try {
+    
+            const toPass = { responses: formData }
+            
+            const response = await fetch( `http://localhost:8000/api/response/${id}`, {
+                method: "POST",
+                credentials: "include",
+                headers: {"Content-type":"application/json"},
+                body: JSON.stringify(toPass)
+            } )
+
+            if (!response.ok) {
+                console.log("Response not recorded");
+            }
+
+            console.log(response.data);
+    
+} catch (error) {
+    console.log(error);
+}
         // Handle form submission (e.g., send data to backend)
     };
 
-    if (!form.name) {
+    if (!form) {
         return <div>Loading...</div>;
     }
 

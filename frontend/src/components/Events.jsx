@@ -22,11 +22,16 @@ function Events() {
 
   const cards = data.map(function(element) {
     return (
-        <div>
-            <h5>{element.name}</h5>
-            <p>{element.description}</p>
-            <button onClick={()=>direct(element._id)}>Register Now!</button>
-        </div>
+      <div
+        className="mb-4 cursor-pointer p-4 bg-purple-800 text-white rounded"
+        onClick={() => toggleAnswer(index)}
+      >
+        {element.name}
+        <br/>
+        <button onClick={()=>direct(element._id)} className="bg-orange font-extrabold text-white py-2 rounded-md hover:bg-orange outline-none focus:bg-orange">
+          Register Now!
+        </button>
+      </div>
     )
   });
 

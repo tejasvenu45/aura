@@ -1,5 +1,5 @@
 import React, { useState, useEffect } from 'react';
-import { useParams } from 'react-router-dom';
+import { useParams, useNavigate } from 'react-router-dom';
 
 // Dummy form data to mimic fetched data
 const dummyFormData = {
@@ -16,6 +16,8 @@ const DynamicForm = () => {
     const [form, setForm] = useState(null);
     const [formData, setFormData] = useState({});
     const { id } = useParams();
+
+    const navigate = useNavigate()
 
     useEffect(() => {
         const fetchData = async () => {
@@ -67,7 +69,8 @@ try {
             }
 
             console.log(response.data);
-    
+            navigate('/Events');
+
 } catch (error) {
     console.log(error);
 }

@@ -1,5 +1,6 @@
 // eslint-disable-next-line no-unused-vars
 import React, { useState } from "react";
+import { useNavigate } from "react-router-dom";
 import aura from "./assets/aura1.png";
 
 function Signup() {
@@ -8,6 +9,8 @@ function Signup() {
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
   const [profile, setProfile] = useState(null);
+
+  const navigate = useNavigate();
 
   async function handleSubmit(evt) {
     evt.preventDefault();
@@ -30,6 +33,7 @@ function Signup() {
 
       const result = await res.json();
       console.log("Success:", result);
+      navigate('/Login');
     } catch (error) {
       console.log("Error is fetch ", error);
     }

@@ -59,6 +59,14 @@ function Navbar() {
                     Public QNA
                   </Link>
                 </li>
+                <li className="m-2">
+                  <Link
+                    to="/Events"
+                    className="text-white hover:text-green-700 hover:underline hover:font-bold"
+                  >
+                    Events
+                  </Link>
+                </li>
               </ul>
             </div>
             <div className="hidden sm:block">

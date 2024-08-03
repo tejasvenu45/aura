@@ -1,5 +1,6 @@
 /* eslint-disable no-unused-vars */
 import React, { useState } from "react";
+import { useNavigate } from "react-router-dom"
 import { useDispatch } from "react-redux";
 import { login } from "../AuthSlice";
 import aura from "./assets/aura1.png"
@@ -10,6 +11,7 @@ function Login() {
   // const [email, setEmail] = useState("");
   const loginInfo = { username, password };
   const dispatch = useDispatch();
+  const navigate = useNavigate();
 
   async function handleSubmit(evt) {
     evt.preventDefault();
@@ -36,6 +38,7 @@ function Login() {
       const user = await res.json();
       dispatch(login(user));
       console.log("Success! ", res);
+      navigate('/');
     } catch (error) {
       console.log("Error in fetch ", error);
     }

@@ -10,6 +10,7 @@ import PublicQNA from './components/PublicQNA'
 import CreateFormFields from './components/CreateFormFields'
 import DynamicForm from './components/DynamicForm'
 import Events from './components/Events'
+import CreateFormFields from './components/CreateFormFields'
 function App() {
   
 
@@ -20,6 +21,8 @@ function App() {
         <Route path="/" element={<Navbar />}>
           <Route index element={<Home />} />
           <Route path="Articles" element={<Articles/>}/>
+          <Route path="Form" element={<CreateFormFields/>}/>
+
           <Route path="Login" element={<Login/>}/>
           <Route path="CreateForm" element={<CreateFormFields/>}/>
           <Route path="DynamicForm/:id" element={<DynamicForm/>}/>

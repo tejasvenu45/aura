@@ -86,7 +86,7 @@ function PublicQNA() {
   };
 
   return (
-    <div className="flex flex-wrap">
+    <div className="flex flex-wrap bg-black text-white">
       <div className="max-w-4xl mx-auto p-6 w-full sm:w-1/2">
         <h1 className="text-4xl font-bold mb-8 text-green-700">
           Public Questions
@@ -97,14 +97,20 @@ function PublicQNA() {
               className="cursor-pointer p-4 bg-purple-800 text-white rounded"
               onClick={() => toggleAnswer(index)}
             >
+              <h1 className="font-black text-3xl ">
               {item.question}
+              </h1>
               <br/>
-              <button onClick={(evt) => handleSubmitLike(evt, item._id)} className="">
+              <button onClick={(evt) => handleSubmitLike(evt, item._id)} className="flex">
                 <img src={like} alt="" className="h-8 w-auto" />
+                <h1 className="text-black ml-4 text-2xl font-bold ">
+                {item.likes}
+
+                </h1>
               </button>
             </div>
             {activeIndex === index && (
-              <div className="mt-2 p-4 bg-orange-400 text-black rounded">
+              <div className="mt-2  text-3xl p-4 bg-orange-400 text-black font-bold rounded">
                 {item.answer &&
                   item.answer.map((answer, idx) => (
                     <div key={idx} className="mb-2">

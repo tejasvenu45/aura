@@ -1,6 +1,7 @@
 import React, { useState } from 'react';
-
+import { useNavigate } from 'react-router-dom';
 const CreateFormFields = () => {
+    const navigate = useNavigate();
     const [fields, setFields] = useState([]);
     const [formName, setFormName] = useState('');
     const [formDescription, setFormDescription] = useState('');
@@ -48,7 +49,7 @@ const CreateFormFields = () => {
             if(!FormRes.ok){
                 console.log("Form not created");
             }
-
+            navigate('/Events');
             console.log(FormRes.data);
     
         } catch (error) {

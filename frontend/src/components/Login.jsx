@@ -1,48 +1,41 @@
 /* eslint-disable no-unused-vars */
 import React, { useState } from "react";
-import { useNavigate } from "react-router-dom"
-import { useDispatch } from "react-redux";
-import { login } from "../AuthSlice";
-import aura from "./assets/aura1.png"
+import { useNavigate } from "react-router-dom";
+import aura from "./assets/aura1.png";
+import { useDispatch, useSelector } from "react-redux";
+import { login, logout } from "../actions/authActions";
 
 function Login() {
-  const [username, setUsername] = useState("");
-  const [password, setPassword] = useState("");
-  // const [email, setEmail] = useState("");
-  const loginInfo = { username, password };
+  const [formData, setFormData] = useState({
+    username: "",
+    password: "",
+  });
+
   const dispatch = useDispatch();
   const navigate = useNavigate();
+  const { user, isAuthenticated } = useSelector((state) => state.auth);
 
-  async function handleSubmit(evt) {
-    evt.preventDefault();
-    // const emailRegex = /^[\w-]+(\.[\w-]+)*@([\w-]+\.)+[a-zA-Z]{2,7}$/;
-    // const isValidEmail = emailRegex.test(username);
-    // if (isValidEmail) {
-    //   setEmail(username);
-    //   setUsername("");
-    // }
+  const handleChange = (e) => {
+    const { name, value } = e.target;
+    setFormData((prevData) => ({
+      ...prevData,
+      [name]: value,
+    }));
+  };
 
-    try {
-      const res = await fetch("http://localhost:8000/api/login", {
-        method: "POST",
-        headers: { "Content-Type": "application/json" },
-        credentials: "include",
-        body: JSON.stringify(loginInfo),
-      });
-
-      if (!res.ok) {
-        console.log("Error!!!! ");
-        return;
-      }
-
-      const user = await res.json();
-      dispatch(login(user));
-      console.log("Success! ", res);
-      navigate('/');
-    } catch (error) {
-      console.log("Error in fetch ", error);
+  const handleSubmit = async (e) => {
+    e.preventDefault();
+    await dispatch(login(formData));
+    if (isAuthenticated) {
+      setTimeout(() => {
+        navigate("/");
+      }, 10);
     }
-  }
+  };
+
+  const handleLogout = () => {
+    dispatch(logout());
+  };
 
   return (
     <>
@@ -55,40 +48,65 @@ function Login() {
           </div>
         </div>
 
-        <form onSubmit={handleSubmit} className="flex flex-col items-center justify-center md:w-1/2 w-full md:h-96">
-          <div className="flex justify-center items-center w-10/12 mt-8 md:mt-0 md:mt-48 bg-black text-white border-4 border-xl border-grey-500 rounded-2xl shadow-xl shadow-cyan-100">
-            <div className="p-10 rounded-lg shadow-lg w-full">
-              <h2 className="text-3xl font-bold text-light-green text-center">SIGN IN!</h2>
+        <div className="flex flex-col items-center justify-center md:w-1/2 w-full md:h-96">
+          {isAuthenticated ? (
+            <div className="flex flex-col items-center justify-center w-10/12 bg-black text-white border-4 border-xl border-grey-500 rounded-2xl shadow-xl shadow-cyan-100 p-10">
+              <h2 className="text-3xl font-bold text-light-green text-center">
+                Welcome, {user.username}!
+              </h2>
+              <p className="text-2xl text-white text-center mt-4">
+                Our website greets you! Enjoy exploring the content.
+              </p>
+              <button
+                onClick={handleLogout}
+                className="mt-8 w-full bg-light-green text-3xl font-extrabold text-white py-2 rounded-md hover:bg-green-600 focus:outline-none focus:bg-green-600"
+              >
+                Logout
+              </button>
+            </div>
+          ) : (
+            <form onSubmit={handleSubmit} className="w-10/12 mt-8 md:mt-0 md:mt-48 bg-black text-white border-4 border-xl border-grey-500 rounded-2xl shadow-xl shadow-cyan-100 p-10">
+              <h2 className="text-3xl font-bold text-light-green text-center">
+                SIGN IN!
+              </h2>
               <div className="mb-4">
-                <label htmlFor="username" className="block text-white text-center text-2xl">
+                <label
+                  htmlFor="username"
+                  className="block text-white text-center text-2xl"
+                >
                   Email/SRN
                 </label>
                 <input
                   type="text"
                   id="username"
                   name="username"
-                  onChange={(e) => setUsername(e.target.value)}
+                  value={formData.username}
+                  onChange={handleChange}
                   className="w-full bg-black px-4 py-2 border border-gray-300 rounded-md focus:outline-none focus:border-green-500"
                 />
               </div>
               <div className="mb-4">
-                <label htmlFor="password" className="block text-white text-center text-2xl">
+                <label
+                  htmlFor="password"
+                  className="block text-white text-center text-2xl"
+                >
                   Password
                 </label>
                 <input
                   type="password"
                   id="password"
                   name="password"
-                  onChange={(e) => setPassword(e.target.value)}
+                  value={formData.password}
+                  onChange={handleChange}
                   className="w-full bg-black px-4 py-2 border border-gray-300 rounded-md focus:outline-none focus:border-green-500"
                 />
               </div>
               <button className="w-full bg-light-green text-3xl font-extrabold text-white py-2 rounded-md hover:bg-green-600 focus:outline-none focus:bg-green-600">
                 Login
               </button>
-            </div>
-          </div>
-        </form>
+            </form>
+          )}
+        </div>
       </div>
     </>
   );

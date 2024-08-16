@@ -29,7 +29,7 @@ function Login() {
     if (isAuthenticated) {
       setTimeout(() => {
         navigate("/");
-      }, 10);
+      }, 2000);
     }
   };
 
@@ -52,7 +52,7 @@ function Login() {
           {isAuthenticated ? (
             <div className="flex flex-col items-center justify-center w-10/12 bg-black text-white border-4 border-xl border-grey-500 rounded-2xl shadow-xl shadow-cyan-100 p-10">
               <h2 className="text-3xl font-bold text-light-green text-center">
-                Welcome, {user.username}!
+                Welcome, {user.username}!{user.fullname}!{user.email}
               </h2>
               <p className="text-2xl text-white text-center mt-4">
                 Our website greets you! Enjoy exploring the content.

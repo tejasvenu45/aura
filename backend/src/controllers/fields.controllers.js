@@ -1,5 +1,6 @@
 import { Events } from "../models/fields.model.js";
 import { asyncHandler } from "../utils/asyncHandler.js";
+import { uploadOnCloudinary } from "../utils/cloudinary.utils.js";
 
 const adminForm = asyncHandler( async( req,res ) => {
     console.log("In adminForm");
@@ -11,12 +12,24 @@ const adminForm = asyncHandler( async( req,res ) => {
         return res.send("Invalid")
     }
 
-    console.log("PROMISE",name,description,fields);
+    // console.log("PROMISE",name,description,fields);
 
     const putFields = await Events.create({name,description,fields})
 
     if (!putFields) {
         console.log("Not putFields");
+    }
+
+    if(putFields.fields.type === "link"){
+        const image = req?.file?.path
+        console.log(`Image and form recieved ${image}`);
+
+        const cloudinary = await uploadOnCloudinary(image)
+        console.log(`Cloudinary url ${cloudinary}`);
+
+        putFields.fields.url = cloudinary.secure_url
+
+        await putFields.save()
     }
 
     const getFields = await Events.findById(putFields._id)

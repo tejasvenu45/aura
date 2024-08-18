@@ -22,7 +22,7 @@ function Hero() {
 
   return (
     <>
-    
+
       <div className="bg-black flex sm:flex-col justify-center items-center pb-12 pt-18 pt-20">
         <div className="flex flex-col sm:flex-row border-2 border-green-700 shadow-green-700 w-11/12 h-1/2 justify-start items-start shadow-xl  hover:scale-105">
           <div className="flex flex-col mt-10 justify-start items-start sm:w-2/5 sm:mt-36 sm:ml-12 sm:mr-24 sm:mb-24">
@@ -30,11 +30,15 @@ function Hero() {
               <img src={logo} alt="Logo" className="mb-12 h-36" />
             </Slide>
             <p className="ml-8 text-white text-5xl font-bold"><Slide>ADAPTING TO THE FUTURE</Slide></p>
-            <Link to="/CreateForm">
-            <p className="text-3xl text-center text-white font-black mt-3 ml-8 bg-green-700">
-            Create a New Form
-              </p> 
-             </Link>
+            {user.isAdmin?(
+              <>
+              <Link to="/CreateForm">
+              <p className="text-3xl text-center text-white font-black mt-3 ml-8 bg-green-700">
+                Create a New Form
+              </p>
+            </Link></>
+            ):(<></>)}
+            
           </div>
 
           <div className="flex flex-col w-4/5 ml-10 mb-10 mt-10 sm:ml-12 sm:mt-12 sm:w-2/5 bg-black" id="post">

@@ -1,10 +1,15 @@
 import React, { useEffect, useState } from "react";
+import { useSelector } from "react-redux";
 import Aura from "./assets/aura.png";
 import like from "./assets/like.png"
+
 function PublicQNA() {
   const [activeIndex, setActiveIndex] = useState(null);
   const [question, setQuestion] = useState("");
   const [faqData, setFaqData] = useState([]);
+  const [answer, setAnswer] = useState("") 
+
+  const user = useSelector(state => state.auth.user)
 
   async function handleSubmit(evt) {
     evt.preventDefault();
@@ -85,6 +90,33 @@ function PublicQNA() {
     setActiveIndex(activeIndex === index ? null : index);
   };
 
+  const handleAnswer = async (evt, id) => {
+    evt.preventDefault();
+
+    try {
+      const res = await fetch(`http://localhost:8000/api/answer/${id}`, {
+        method: "POST",
+        headers: { "Content-Type": "application/json" },
+        credentials: "include",
+        body: JSON.stringify({ answer })
+      });
+
+      if (!res.ok) {
+        console.log("error in sending answer!");
+        const errorData = await res.json();
+        console.error(errorData);
+      } else {
+        const data = await res.json();
+        console.log("Success:", data);
+        setFaqData((prevFaqData) =>
+          prevFaqData.map((item) => (item._id === data._id ? data : item))
+        );
+      }
+    } catch (error) {
+      console.log(error);
+    }
+  }
+
   return (
     <div className="flex flex-wrap bg-black text-white">
       <div className="max-w-4xl mx-auto p-6 w-full sm:w-1/2">
@@ -108,6 +140,25 @@ function PublicQNA() {
 
                 </h1>
               </button>
+              {user.isAdmin ? (
+                <>
+                <label
+                  htmlFor="answer"
+                  className="block text-white text-center text-2xl"
+                >
+                  Provide Answer Here
+                </label>
+                <input
+                    type="text"
+                    name="answer"
+                    className="w-full p-3 text-black border border-gray-300 rounded"
+                    onChange={(evt) => setAnswer(evt.target.value)}
+                />
+                <button onClick={(evt)=>handleAnswer(evt, item._id)} className="bg-orange-700 p-4 font-extrabold text-white py-2 rounded-md hover:bg-orange outline-none focus:bg-orange">
+                  Answer
+                </button>
+                </>
+              ):(<></>)}
             </div>
             {activeIndex === index && (
               <div className="mt-2  text-3xl p-4 bg-orange-400 text-black font-bold rounded">

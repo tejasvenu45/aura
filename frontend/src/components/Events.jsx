@@ -16,8 +16,8 @@ function Events() {
   
   const navigate = useNavigate();
 
-  function direct(postID) {
-    navigate(`/DynamicForm/${postID}`);
+  function direct(ID) {
+    navigate(`/DynamicForm/${ID}`);
   }
 
   const cards = data.map(function(element) {

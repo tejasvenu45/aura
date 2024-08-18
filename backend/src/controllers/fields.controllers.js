@@ -4,16 +4,16 @@ import { asyncHandler } from "../utils/asyncHandler.js";
 const adminForm = asyncHandler( async( req,res ) => {
     console.log("In adminForm");
 
-    const { name,description,fields } = req.body
+    const { name,description,teamsize,fields } = req.body
 
-    if( ([name,description].some( (f) => f.trim() === "" )) || fields.length === 0 ){
+    if( ([name,description,teamsize].some( (f) => f.trim() === "" )) || fields.length === 0 ){
         console.log("All fields not entered");
         return res.send("Invalid")
     }
 
-    console.log("PROMISE",name,description,fields);
+    console.log("PROMISE",name,description,teamsize,fields);
 
-    const putFields = await Events.create({name,description,fields})
+    const putFields = await Events.create({name,description,teamsize,fields})
 
     if (!putFields) {
         console.log("Not putFields");

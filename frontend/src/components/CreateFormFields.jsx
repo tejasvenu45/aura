@@ -1,10 +1,12 @@
 import React, { useState } from 'react';
 import { useNavigate } from 'react-router-dom';
+
 const CreateFormFields = () => {
     const navigate = useNavigate();
     const [fields, setFields] = useState([]);
     const [formName, setFormName] = useState('');
     const [formDescription, setFormDescription] = useState('');
+    const [formTeamSize, setFormTeamSize] = useState('')
 
     const handleAddField = () => {
         setFields([...fields, { label: '', type: 'text', required: false, options: [] }]);
@@ -37,7 +39,7 @@ const CreateFormFields = () => {
         event.preventDefault();
         
         try {
-            const toPass = { name: formName, description: formDescription, fields }
+            const toPass = { name: formName, description: formDescription, teamsize: formTeamSize, fields }
     
             const FormRes = await fetch( "http://localhost:8000/api/create-form", {
                 method:"POST",
@@ -70,7 +72,7 @@ const CreateFormFields = () => {
                 <h2 className="text-3xl font-bold mb-6 text-green-700">Create Form</h2>
                 <form onSubmit={handleSubmit}>
                     <div className="mb-4">
-                        <label className="block text-orange-700 mb-2 text-lg font-semibold">Form Name</label>
+                        <label className="block text-orange-700 mb-2 text-lg font-semibold">Event Name</label>
                         <input
                             type="text"
                             value={formName}
@@ -80,7 +82,7 @@ const CreateFormFields = () => {
                         />
                     </div>
                     <div className="mb-4">
-                        <label className="block text-orange-700 mb-2 text-lg font-semibold">Form Description</label>
+                        <label className="block text-orange-700 mb-2 text-lg font-semibold">Event Description</label>
                         <input
                             type="text"
                             value={formDescription}
@@ -88,6 +90,21 @@ const CreateFormFields = () => {
                             className="w-full p-3 text-black border border-gray-300 rounded"
                             required
                         />
+                    </div>
+                    <div className="mb-4">
+                        <label className="block text-orange-700 mb-2 text-lg font-semibold">Maximum team size</label>
+                        <select
+                            className="w-full p-3 text-black border border-gray-300 rounded"
+                            onChange={(e) => setFormTeamSize(e.target.value)}
+                            required
+                        >
+                            <option key='1' value='1'>1</option>
+                            <option key='2' value='2'>2</option>
+                            <option key='3' value='3'>3</option>
+                            <option key='4' value='4'>4</option>
+                            <option key='5' value='5'>5</option>
+                            <option key='6' value='6'>6</option>
+                        </select>
                     </div>
                     {fields.map((field, index) => (
                         <div key={index} className="mb-4 p-4 border border-gray-300 rounded">

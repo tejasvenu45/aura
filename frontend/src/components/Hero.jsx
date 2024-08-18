@@ -30,11 +30,11 @@ function Hero() {
               <img src={logo} alt="Logo" className="mb-12 h-36" />
             </Slide>
             <p className="ml-8 text-white text-5xl font-bold"><Slide>ADAPTING TO THE FUTURE</Slide></p>
-            {user.isAdmin?(
+            {(isAuthenticated && user.isAdmin)?(
               <>
               <Link to="/CreateForm">
               <p className="text-3xl text-center text-white font-black mt-3 ml-8 bg-green-700">
-                Create a New Form
+                Create a New Event
               </p>
             </Link></>
             ):(<></>)}

@@ -29,6 +29,10 @@ const formTemplateSchema = new mongoose.Schema({
         type:String,
         required:true
     },
+    teamsize: {
+        type:Number,
+        required:true
+    },
     responses:[
         {
             type: mongoose.Schema.Types.Mixed,

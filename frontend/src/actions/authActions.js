@@ -1,11 +1,11 @@
 // src/actions/authActions.js
 import { LOGIN_SUCCESS, LOGIN_FAILURE, LOGOUT } from './types';
 
-// Action to handle login
 export const login = (formData) => async (dispatch) => {
     try {
         const response = await fetch('http://localhost:8000/api/login', {
             method: 'POST',
+            credentials: 'include',
             headers: {
                 'Content-Type': 'application/json',
             },
@@ -15,6 +15,7 @@ export const login = (formData) => async (dispatch) => {
         const data = await response.json();
 
         if (response.ok) {
+            localStorage.setItem('token', data.token); // Save token to localStorage
             dispatch({
                 type: LOGIN_SUCCESS,
                 payload: data,
@@ -38,8 +39,13 @@ export const logout = () => async (dispatch) => {
     try {
         await fetch('http://localhost:8000/api/logout', {
             method: 'POST',
+            credentials: 'include',
+            headers: {
+                'Authorization': `Bearer ${localStorage.getItem('token')}` // Include token in request headers
+            }
         });
 
+        localStorage.removeItem('token'); // Remove token from localStorage
         dispatch({ type: LOGOUT });
     } catch (error) {
         console.error('Logout failed:', error);

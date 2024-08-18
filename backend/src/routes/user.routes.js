@@ -1,8 +1,9 @@
 import { Router } from "express";
 import { asyncHandler } from "../utils/asyncHandler.js";
-import { registerUser,loginUser,logoutUser,userResponseToForm,getForm } from "../controllers/user.controllers.js";
+import { registerUser,loginUser,logoutUser,userResponseToForm,getForm, imageUploadInForm } from "../controllers/user.controllers.js";
 import { verifyJWT } from "../middlewares/auth.middelwares.js";
 import { upload } from "../middlewares/multer.middlewares.js";
+import { uploadOnCloudinary } from "../utils/cloudinary.utils.js";
 
 const router = Router()
 
@@ -46,6 +47,14 @@ router.route("/response/:formId").post(verifyJWT, asyncHandler( async (req,res) 
     console.log(received);
     res.json(received)
 } ))
+
+router.route("/response/imageUploadInResponse/:formId").post( verifyJWT, upload.single("image"), asyncHandler( async(req,res) => {
+    console.log("In /reponse/ImageUpload");
+    const received = await imageUploadInForm(req,res)
+    console.log(received);
+    res.json(received)
+    
+} ) )
 
 
 export { router }

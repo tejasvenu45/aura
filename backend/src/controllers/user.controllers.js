@@ -211,4 +211,30 @@ const getForm = asyncHandler( async (req,res) => {
     .json(form)
 } )
 
-export { registerUser,loginUser,logoutUser,getUser,userResponseToForm,getForm }
+const imageUploadInForm = asyncHandler( async (req,res) => {
+    const {formId} = req.params
+    const image = req.file?.path
+
+    console.log(formId);
+
+    const Form = await Events.findById(formId)
+
+    console.log("Image file path ",image);
+
+    const cloudinary = await uploadOnCloudinary(image)
+
+    console.log(`After cloudinary upload ${cloudinary}`);
+
+    console.log("Form is ", Form);
+    
+    Form.responses.push(cloudinary.secure_url)
+
+    await Form.save()
+
+    return res
+    .status(200)
+    .json(Form)
+} )
+
+
+export { registerUser,loginUser,logoutUser,getUser,userResponseToForm,getForm,imageUploadInForm }

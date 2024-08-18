@@ -17,7 +17,10 @@ const fieldSchema = new mongoose.Schema({
         {
             type:String
         }
-    ]
+    ],
+    url:{
+        type: String
+    }
 },{timestamps:true})
 
 const formTemplateSchema = new mongoose.Schema({

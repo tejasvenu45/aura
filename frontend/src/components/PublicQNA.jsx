@@ -1,5 +1,6 @@
 import React, { useEffect, useState } from "react";
 import { useSelector } from "react-redux";
+import { useNavigate } from "react-router-dom";
 import Aura from "./assets/aura.png";
 import like from "./assets/like.png"
 
@@ -10,6 +11,8 @@ function PublicQNA() {
   const [answer, setAnswer] = useState("") 
 
   const user = useSelector(state => state.auth.user)
+
+  const navigate = useNavigate()
 
   async function handleSubmit(evt) {
     evt.preventDefault();
@@ -108,9 +111,7 @@ function PublicQNA() {
       } else {
         const data = await res.json();
         console.log("Success:", data);
-        setFaqData((prevFaqData) =>
-          prevFaqData.map((item) => (item._id === data._id ? data : item))
-        );
+        navigate('/PublicQNA')
       }
     } catch (error) {
       console.log(error);

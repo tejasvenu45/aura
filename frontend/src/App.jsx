@@ -10,13 +10,9 @@ import PublicQNA from './components/PublicQNA'
 import CreateFormFields from './components/CreateFormFields'
 import DynamicForm from './components/DynamicForm'
 import Events from './components/Events'
-<<<<<<< HEAD
-// import CreateFormFields from './components/CreateFormFields'
-=======
-
 import { Provider } from 'react-redux';
 import store from './store';
->>>>>>> 95b8b0bba7386480d30855e7102f8f2d14b6825e
+
 function App() {
 
 

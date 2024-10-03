@@ -2,10 +2,12 @@ import { useState, useEffect } from 'react';
 import { useNavigate } from 'react-router-dom'
 
 function Events() {
+  const api = import.meta.env.VITE_BASE_URL;
+
   const [data, setData] = useState([]);
 
   useEffect(function() {
-    fetch('http://localhost:8000/api/getEvents', {
+    fetch(`${api}/api/getEvents`, {
       method: 'GET',
       credentials: 'include'
     })

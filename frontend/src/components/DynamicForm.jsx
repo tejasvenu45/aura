@@ -13,6 +13,8 @@ const dummyFormData = {
 };
 
 const DynamicForm = () => {
+    const api = import.meta.env.VITE_BASE_URL;
+
     const [form, setForm] = useState(null);
     const [formData, setFormData] = useState({});
     const { id } = useParams();
@@ -22,7 +24,7 @@ const DynamicForm = () => {
     useEffect(() => {
         const fetchData = async () => {
             try {
-                const response = await fetch(`http://localhost:8000/api/response/${id}`, {
+                const response = await fetch(`${api}/api/response/${id}`, {
                     method: "GET",
                     credentials: "include"
                 });
@@ -57,7 +59,7 @@ try {
     
             const toPass = { responses: formData }
             
-            const response = await fetch( `http://localhost:8000/api/response/${id}`, {
+            const response = await fetch( `${api}/api/response/${id}`, {
                 method: "POST",
                 credentials: "include",
                 headers: {"Content-type":"application/json"},

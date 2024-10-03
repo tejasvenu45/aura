@@ -2,6 +2,7 @@ import React, { useState } from 'react';
 import { useNavigate } from 'react-router-dom';
 
 const CreateFormFields = () => {
+    const api = import.meta.env.VITE_BASE_URL;
     const navigate = useNavigate();
     const [fields, setFields] = useState([]);
     const [formName, setFormName] = useState('');
@@ -41,7 +42,7 @@ const CreateFormFields = () => {
         try {
             const toPass = { name: formName, description: formDescription, teamsize: formTeamSize, fields }
     
-            const FormRes = await fetch( "http://localhost:8000/api/create-form", {
+            const FormRes = await fetch( `${api}/api/create-form`, {
                 method:"POST",
                 credentials: 'include',
                 headers: {"Content-type":"application/json"},

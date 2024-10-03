@@ -4,6 +4,8 @@ import { useNavigate } from "react-router-dom";
 import aura from "./assets/aura1.png";
 
 function Signup() {
+  const api = import.meta.env.VITE_BASE_URL;
+
   const [fullname, setFullname] = useState("");
   const [srn, setSrn] = useState("");
   const [email, setEmail] = useState("");
@@ -22,7 +24,7 @@ function Signup() {
     formData.append("profile", profile);
 
     try {
-      const res = await fetch("http://localhost:8000/api/register", {
+      const res = await fetch(`${api}/api/register`, {
         method: "POST",
         body: formData,
       });

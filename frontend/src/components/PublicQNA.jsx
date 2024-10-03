@@ -5,6 +5,8 @@ import Aura from "./assets/aura.png";
 import like from "./assets/like.png"
 
 function PublicQNA() {
+  const api = import.meta.env.VITE_BASE_URL;
+
   const [activeIndex, setActiveIndex] = useState(null);
   const [question, setQuestion] = useState("");
   const [faqData, setFaqData] = useState([]);
@@ -18,7 +20,7 @@ function PublicQNA() {
     evt.preventDefault();
 
     try {
-      const res = await fetch("http://localhost:8000/api/questionPublic", {
+      const res = await fetch(`${api}/api/questionPublic`, {
         method: "POST",
         headers: { "Content-Type": "application/json" },
         credentials: "include",
@@ -43,7 +45,7 @@ function PublicQNA() {
     evt.preventDefault();
 
     try {
-      const res = await fetch(`http://localhost:8000/api/like/${id}`, {
+      const res = await fetch(`${api}/api/like/${id}`, {
         method: "POST",
         headers: { "Content-Type": "application/json" },
         credentials: "include",
@@ -68,7 +70,7 @@ function PublicQNA() {
   useEffect(() => {
     async function receiveQuestion() {
       try {
-        const req = await fetch("http://localhost:8000/api/getQuestions", {
+        const req = await fetch(`${api}/api/getQuestions`, {
           method: "GET",
           // headers: { "Content-type": "application/json" },
           credentials: "include",
@@ -97,7 +99,7 @@ function PublicQNA() {
     evt.preventDefault();
 
     try {
-      const res = await fetch(`http://localhost:8000/api/answer/${id}`, {
+      const res = await fetch(`${api}/api/answer/${id}`, {
         method: "POST",
         headers: { "Content-Type": "application/json" },
         credentials: "include",
